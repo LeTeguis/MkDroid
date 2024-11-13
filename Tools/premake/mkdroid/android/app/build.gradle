@@ -1,0 +1,52 @@
+apply plugin: 'com.android.application'
+
+android {
+  namespace '{1}'
+  compileSdkVersion {2}
+  ndkVersion '{3}'
+
+  defaultConfig {
+      applicationId = '{1}'
+      minSdkVersion {4}
+      targetSdkVersion {5}
+  }
+  
+  externalNativeBuild {
+      ndkBuild {
+          path '{10}' // Chemin vers votre fichier .mk
+      }
+  }
+
+  buildDir = project.findProperty('buildDir') ?: "$rootDir/build"
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_{6}
+    targetCompatibility JavaVersion.VERSION_{7}
+  }
+
+  applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def apkPath = project.findProperty('apkPath') ?: "AppBase"
+            def apkName = project.findProperty('apkName') ?: "AppBase-1.0"
+            def variantSuffix = variant.buildType.name == "release" ? "release" : "debug"
+            output.outputFileName = "${apkPath}/${apkName}-${variant.versionName}-${variantSuffix}.apk" // Nom de l'APK
+        }
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    }
+    debug {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    }
+  }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    {9}
+}

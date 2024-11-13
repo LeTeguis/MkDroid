@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  package="com.rihen.appbase"
+  android:versionCode="1"
+  android:versionName="1.0"
+>
+  <application
+    android:allowBackup="false"
+    android:fullBackupContent="false"
+    android:hardwareAccelerated="true"
+    android:hasCode="false"
+    android:label="AppBase"
+  >
+
+    <activity
+      android:name="android.app.NativeActivity"
+      android:configChanges="orientation|keyboardHidden"
+      android:label="AppBase"
+      android:hardwareAccelerated="true"
+      android:exported="true">
+      <meta-data
+        android:name="android.app.lib_name"
+        android:value="AppBase" />
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+  </application>
+  <!--permissions-->
+  	<uses-feature android:glEsVersion="0x00030000" android:required="true" />
+  <!--/permissions-->
+</manifest>
