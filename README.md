@@ -42,7 +42,7 @@ Voici un aperçu de la structure des dossiers principaux :
 
 1. **Clonez le projet MkDroid :**
    ```bash
-   git clone https://github.com/votre-repo/mkdroid.git
+   git clone https://github.com/LeTeguis/mkdroid.git
    cd mkdroid
    ```
 
