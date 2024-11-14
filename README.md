@@ -78,7 +78,7 @@ Les commandes suivantes permettent d'exécuter différentes tâches depuis le te
 
 Utilisez Premake5 pour générer un projet Android :
 ```bash
-./nken build gradle --path ./AppBase/platforms/android --config release
+./nken gen gradle
 ```
 
 ### 2️⃣ Compilation
