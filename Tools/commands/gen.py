@@ -5,6 +5,25 @@ from pathlib import Path
 
 premake_path = "./Tools/premake/premake5.exe"
 
+
+def description():
+    """
+    Affiche la description générale du script si aucune commande n'est fournie.
+    """
+    print("""
+    Ce script génère des fichiers de projet en fonction du système de construction sélectionné.
+    Les options disponibles sont :
+
+    msvc    : Générer le projet pour Visual Studio 2022.
+    make    : Générer le projet pour Make (gmake2).
+    clang   : Générer le projet pour Clang (gmake2).
+    gradle  : Générer le projet pour Gradle (mkdroid).
+    mingw   : Générer le projet pour Mingw (gmake2).
+
+    Utilisez `./nken gen --help` pour plus d'informations sur une commande.
+    """)
+
+
 def help_command():
     """
     Affiche l'aide générale et spécifique pour les commandes.
@@ -80,23 +99,6 @@ def run_command(command):
     except subprocess.CalledProcessError as e:
         print(f"Erreur lors de l'exécution de la commande : {e.stderr}")
         sys.exit(1)
-
-def description():
-    """
-    Affiche la description générale du script si aucune commande n'est fournie.
-    """
-    print("""
-    Ce script génère des fichiers de projet en fonction du système de construction sélectionné.
-    Les options disponibles sont :
-
-    msvc    : Générer le projet pour Visual Studio 2022.
-    make    : Générer le projet pour Make (gmake2).
-    clang   : Générer le projet pour Clang (gmake2).
-    gradle  : Générer le projet pour Gradle (mkdroid).
-    mingw   : Générer le projet pour Mingw (gmake2).
-
-    Utilisez `./nken gen --help` pour plus d'informations sur une commande.
-    """)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Outil de compilation multi-plateforme.")

@@ -1,4 +1,4 @@
--- premake5.lua for NativeActivity
+-- premake5.lua for ./NativeActivity
 
 project "NativeActivity"
     kind "SharedLib"

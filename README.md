@@ -85,26 +85,26 @@ Utilisez Premake5 pour générer un projet Android :
 
 Compilez le projet avec un compilateur spécifique :
 ```bash
-./nken build clang --path ./ --config release
+./nken build gradle --path ./myproject --config release
 ```
 
 ### 3️⃣ Signature et vérification des APK
 
 - Signer un APK :
   ```bash
-  ./nken sign --file ./build/release/app.apk --key ./keystore.jks --alias keyAlias
+  ./nken sign --apk myapp.apk --keystore mykeystore.jks --alias mykeyalias --storepass mystorepass --keypass mykeypass
   ```
 
 - Vérifier si un APK est signé :
   ```bash
-  ./nken issign --file ./build/release/app.apk
+  ./nken issign --apk myapp.apk
   ```
 
 ### 4️⃣ Installation sur appareil Android
 
 Installez un APK sur un appareil spécifique :
 ```bash
-./nken install --file ./build/release/app.apk --device <device-id>
+./nken adb install --device_id <device_id> --apk <path_to_apk>
 ```
 
 ### 5️⃣ Nettoyage
