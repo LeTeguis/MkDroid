@@ -6,11 +6,11 @@ import os
 import sys
 from pathlib import Path
 
-gradle_build_path = "./Tools/android/gradlew"
+gradle_build_path = ".\\Tools\\android\\gradlew.bat"
 msvc_build_path = "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe"
 clang_build_path = "C:\\Program Files\\LLVM\\bin\\clang.exe"
 mingw_build_path = "C:\\Program Files\\MinGW\\bin\\gcc.exe"
-make_build_path = "/usr/bin/make"  # Modifier si le chemin de make est différent
+make_build_path = "C:\\Program Files\\MinGW\\bin\\gcc.exe" # Modifier si le chemin de make est différent
 
 
 def description():
@@ -55,6 +55,8 @@ def build_gradle(solution_path, config):
         str(build_path), '-p', str(Path(solution_path)),
         f"assemble{config.capitalize()}"
     ]
+
+    print(command)
 
     try:
         result = subprocess.run(command, check=True, capture_output=True, text=True, cwd=solution_path)

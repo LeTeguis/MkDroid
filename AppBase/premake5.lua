@@ -1,4 +1,4 @@
--- premake5.lua for AppBase
+-- premake5.lua for ./AppBase
 
 project "AppBase"
     --kind "SharedLib"
