@@ -7,11 +7,11 @@ workspace "MKDROID"
     architecture "arm64"  -- Définissez l'architecture cible appropriée
 
     buildoptions {
-        solution.cflags.flags.FatalCompileWarnings,
-        solution.cflags.flags.ShadowedVariables,
-        solution.cflags.flags.UndefinedIdentifiers,
-        solution.cflags.flags.DefineExeception,
-        solution.cflags.flags.UnuseFunction,
+        --solution.cflags.flags.FatalCompileWarnings,
+        --solution.cflags.flags.ShadowedVariables,
+        --solution.cflags.flags.UndefinedIdentifiers,
+        --solution.cflags.flags.DefineExeception,
+        --solution.cflags.flags.UnuseFunction,
     }
   
     -- Ajout des C++ flags pour Android
@@ -25,5 +25,5 @@ workspace "MKDROID"
     }
 
 
-    include "NativeActivity"
+    --include "NativeActivity"
     include "AppBase"

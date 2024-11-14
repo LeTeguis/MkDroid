@@ -78,16 +78,16 @@ end
 
 -- solution file
 function solution.appFile(sln)
-	return sln.name .."_Application.mk"
+	return "Application.mk"
 end
   
 function solution.androidFile(sln)
-	return sln.name .."_Android.mk"
+	return "Android.mk"
 end
   
   
 function solution.prjFile(prj)
-	return prj.name ..".mk"
+	return "Android.mk"
 end
 
 -- Linker flags for optimizing builds

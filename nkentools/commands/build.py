@@ -79,7 +79,7 @@ def build_gradle(solution_path, config):
 
     command = [
         str(build_path), '-p', str(Path(solution_path).resolve()),
-        f"assemble{config.capitalize()}"
+        f"assemble{config.capitalize()}", f"-PMKA_CONFIG={config}"
     ]
 
     try:

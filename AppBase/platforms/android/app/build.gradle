@@ -9,11 +9,17 @@ android {
       applicationId = 'com.rihen.appbase'
       minSdkVersion 21
       targetSdkVersion 31
+
+      externalNativeBuild {
+          ndkBuild {
+              arguments "MKA_CONFIG=${MKA_CONFIG}" // Configuration dynamique basée sur le type de build
+          }
+      }
   }
   
   externalNativeBuild {
       ndkBuild {
-          path '../../../../MKDROID_Android.mk' // Chemin vers votre fichier .mk
+          path '../../../../Android.mk' // Chemin vers votre fichier .mk
       }
   }
 
@@ -28,7 +34,7 @@ android {
         variant.outputs.all { output ->
             def apkPath = project.findProperty('apkPath') ?: "AppBase"
             def apkName = project.findProperty('apkName') ?: "AppBase-1.0"
-            def variantSuffix = variant.buildType.name == "release" ? "release" : "debug"
+            def variantSuffix = variant.buildType.name
             //output.outputFileName = "${apkPath}/${apkName}-${variant.versionName}-${variantSuffix}.apk" // Nom de l'APK
             output.outputFileName = "${apkName}-${variant.versionName}-${variantSuffix}.apk" // Nom de l'APK
 

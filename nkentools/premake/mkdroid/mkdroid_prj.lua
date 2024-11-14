@@ -23,7 +23,7 @@ function mkdroid.project.generate(wks, prj)
     -- Gérer les configurations spécifiques
     for cfg in project.eachconfig(prj) do
         p.w('')
-        p.x('ifeq ($(%s),%s)', mkdroid.project.CONFIG_OPTION, cfg.shortname)
+        p.x('ifeq ($(%s),%s)', mkdroid.CONFIG_OPTION, cfg.shortname)
 
         mkdroid.project.includes(prj, cfg, wks)
         mkdroid.project.cppFeatures(prj, cfg)

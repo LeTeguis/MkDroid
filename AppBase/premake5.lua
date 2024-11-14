@@ -10,22 +10,27 @@ project "AppBase"
     files { 
         "./src/**.h", 
         "./src/**.cpp",
-        --"$(NDK_PATH)/sources/android/native_app_glue/android_native_app_glue.c"
+        solution.properties.ndk.path .. "/" .. solution.properties.ndk.version .. "/sources/android/native_app_glue/android_native_app_glue.c"
     }
 
-    links { "NativeActivity", "android", "log", "EGL", "GLESv3", "GLESv1_CM" }
-    -- links { "android", "log", "EGL", "GLESv3", "GLESv1_CM" }
+    includedirs { 
+        "./src",
+        solution.properties.ndk.path .. "/" .. solution.properties.ndk.version .. "/sources/android/native_app_glue"
+    }
+
+    -- links { "NativeActivity", "android", "log", "EGL", "GLESv3", "GLESv1_CM" }
+    links { "android", "log", "EGL", "GLESv3", "GLESv1_CM" }
 
     includedirs { 
-        "./src", 
-        "%{solution.project.nativeActivity.path}/src",
+        --"./src", 
+        --"%{solution.project.nativeActivity.path}/src",
         --"$(NDK_PATH)/sources/android/native_app_glue"
     }
 
     local_importModules { 
         --"%{solution.project.nativeActivity.path}/%{solution.project.nativeActivity.name}.mk" 
     }
-    local_includes { "%{solution.project.nativeActivity.path}/%{solution.project.nativeActivity.name}.mk" }
+    --local_includes { "%{solution.project.nativeActivity.path}/%{solution.project.nativeActivity.name}.mk" }
 
     local_abi               {solution.abi.flags.all}
     local_platform          (solution.platform.flags.android21)

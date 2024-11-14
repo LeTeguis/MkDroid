@@ -5,6 +5,7 @@ MkDroid is a framework for generating Android projects in native C++ using **Pre
 It includes tools for automating APK compilation, signing, cleanup and deployment, 
 as well as for managing connected Android devices.
 
+
 ## 📋 Features
 
 - Android project generation with **Premake5**.
