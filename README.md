@@ -24,7 +24,7 @@ ainsi que pour gérer les appareils Android connectés.
 Voici un aperçu de la structure des dossiers principaux :
 
 ```
-├── tools/
+├── nkentools/
 │   ├── android/         # Scripts Gradle pour Android
 │   ├── commands/        # Scripts Python pour diverses commandes
 │   ├── premake/         # Binaires et modules Premake5
@@ -47,7 +47,7 @@ Voici un aperçu de la structure des dossiers principaux :
    ```
 
 2. **Copiez les fichiers nécessaires dans votre projet tiers :**
-   - Copiez le dossier `tools/` et les fichiers suivants dans la racine de votre projet :
+   - Copiez le dossier `nkentools/` et les fichiers suivants dans la racine de votre projet :
      - `nken.sh`
      - `nken.bat`
      - `.nkenclean`
@@ -57,7 +57,7 @@ Voici un aperçu de la structure des dossiers principaux :
 1. Créez un fichier `premake5.lua` dans votre projet.
 2. Exemple de configuration basique :
    ```lua
-   include "tools/config.lua"
+   include "nkentools/config.lua"
 
    workspace "MKDROID"
        configurations { "Debug", "Release" }
@@ -128,16 +128,16 @@ Nettoyez les fichiers générés :
 
 ## 📖 Documentation
 
-- **Configurer premake5.lua** : Consultez `tools/premake/mkdroid/` pour des exemples détaillés.
-- **Commandes disponibles** : Toutes les commandes Python se trouvent dans le dossier `tools/commands/`.
+- **Configurer premake5.lua** : Consultez `nkentools/premake/mkdroid/` pour des exemples détaillés.
+- **Commandes disponibles** : Toutes les commandes Python se trouvent dans le dossier `nkentools/commands/`.
 
 ---
 
 ## 🛠️ Développement
 
 Pour contribuer ou étendre les fonctionnalités de MkDroid :
-1. Modifiez ou ajoutez des scripts lua dans `tools/premake/mkdroid/`.
-1. Modifiez ou ajoutez des scripts Python dans `tools/commands/`.
+1. Modifiez ou ajoutez des scripts lua dans `nkentools/premake/mkdroid/`.
+1. Modifiez ou ajoutez des scripts Python dans `nkentools/commands/`.
 2. Ajoutez de nouvelles fonctionnalités dans `nken.sh` ou `nken.bat` ou autres.
 
 ---
@@ -157,7 +157,7 @@ Les contributions sont les bienvenues ! N'hésitez pas à soumettre des issues
 ## 🧩 Exemple de projet
 
 Un exemple complet est disponible dans le dossier `./`. Suivez ces étapes pour le configurer :
-1. Copiez les fichiers de `tools/` et le script `premake5.lua`.
+1. Copiez les fichiers de `nkentools/` et le script `premake5.lua`.
 2. Modifiez `premake5.lua` pour ajouter vos projets.
 
 ---

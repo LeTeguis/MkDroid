@@ -28,9 +28,9 @@ def load_nkenclean_config():
 
 def load_project_list():
     """
-    Charge les projets supplémentaires à partir du fichier ./Tools/workspace/list_project.ntslp.
+    Charge les projets supplémentaires à partir du fichier ./nkentools/workspace/list_project.ntslp.
     """
-    projects_path = Path("./Tools/workspace/list_project.ntslp")
+    projects_path = Path("./nkentools/workspace/list_project.ntslp")
     project_list = {}
     
     if projects_path.is_file():

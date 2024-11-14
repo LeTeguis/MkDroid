@@ -4,7 +4,7 @@ import importlib
 from pathlib import Path
 
 
-commands_dir = "./Tools/commands"
+commands_dir = "./nkentools/commands"
 
 
 def get_module_command(command_name):
@@ -23,6 +23,10 @@ def get_module_command(command_name):
         return True, command_module
     except ModuleNotFoundError:
         return False, None
+
+
+def description():
+    return "Commande d'aide pour comprendre comment les autres commandes fonctionnent"
 
 
 def help_command(command_name):
@@ -77,9 +81,6 @@ def run(command_names=None):
     print("**Aide pour une commande spécifique :**")
     print(" - `./nken help commande`")
 
-
-def description():
-    return "Commande d'aide pour comprendre comment les autres commandes fonctionnent"
 
 
 if __name__ == '__main__':

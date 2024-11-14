@@ -3,7 +3,7 @@ import argparse
 import sys
 from pathlib import Path
 
-premake_path = "./Tools/premake/premake5.exe"
+premake_path = "./nkentools/premake/premake5.exe"
 
 
 def description():

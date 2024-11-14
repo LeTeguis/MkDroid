@@ -6,7 +6,7 @@ import os
 import sys
 from pathlib import Path
 
-gradle_build_path = ".\\Tools\\android\\gradlew.bat"
+gradle_build_path = ".\\nkentools\\android\\gradlew.bat"
 msvc_build_path = "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe"
 clang_build_path = "C:\\Program Files\\LLVM\\bin\\clang.exe"
 mingw_build_path = "C:\\Program Files\\MinGW\\bin\\gcc.exe"
