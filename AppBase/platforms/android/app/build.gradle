@@ -19,7 +19,7 @@ android {
   
   externalNativeBuild {
       ndkBuild {
-          path '../../../../Android.mk' // Chemin vers votre fichier .mk
+          path '../../../../MKDROID.mk' // Chemin vers votre fichier .mk
       }
   }
 

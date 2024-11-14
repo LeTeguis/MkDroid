@@ -198,5 +198,3 @@ If you have any suggestions or ideas for MkDroid, please share them in the **Iss
 
 🎉 **Thank you for using MkDroid!**  
 Let us know if you have any ideas or have created a project using this framework.
-
-Translated with DeepL.com (free version)

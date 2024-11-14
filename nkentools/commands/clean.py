@@ -88,16 +88,22 @@ def clean_command(extra_extensions=None, extra_folders=None, project_list=None):
             dirs_to_remove = [d for d in dirs if any(fnmatch.fnmatch(d.lower(), folder.lower()) for folder in folders)]
             for d in dirs_to_remove:
                 dir_path = os.path.join(root, d)
-                print(f"============= [{project_name}] (Deleted folder) | \"{dir_path}\"")
-                shutil.rmtree(dir_path)
+                try:
+                    print(f"============= [{project_name}] (Deleted folder) | \"{dir_path}\"")
+                    shutil.rmtree(dir_path)
+                except Exception as e:
+                    print(f"Erreur lors de la suppression du dossier \"{dir_path}\": {e}")
                 dirs.remove(d)  # Supprimer le dossier de la liste `dirs` pour éviter une descente récursive
 
             # Supprimer les fichiers correspondant aux motifs dans `extensions`
             files_to_remove = [f for f in files if any(fnmatch.fnmatch(f.lower(), ext.lower()) for ext in extensions)]
             for f in files_to_remove:
                 file_path = os.path.join(root, f)
-                print(f"============= [{project_name}] (Deleted file) | \"{file_path}\"")
-                os.remove(file_path)
+                try:
+                    print(f"============= [{project_name}] (Deleted file) | \"{file_path}\"")
+                    os.remove(file_path)
+                except Exception as e:
+                    print(f"Erreur lors de la suppression du fichier \"{file_path}\": {e}")
 
 
 if __name__ == '__main__':

@@ -175,7 +175,7 @@ function mkdroid.android.modifyAppBuildGradle(wks, prj, content)
 
     local relative = path.getrelative(prj.location .. "/platforms/android/app", wks.location)
 
-    content = content:gsub("{10}", relative .. "/Android.mk")
+    content = content:gsub("{10}", relative .. "/" .. wks.name .. ".mk")
     
     return content
 end

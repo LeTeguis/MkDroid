@@ -46,7 +46,7 @@ function mkdroid.workspace.generate(sln)
     p.w('')
 
     for prj in pworkspace.eachproject(sln) do
-        local prjpath = premake.filename(prj, "Android.mk")
+        local prjpath = premake.filename(prj, solution.prjFile(prj))
         local prjrelpath = path.getrelative(sln.location, prjpath)
         p.x('include $(%s)/%s', curpath, prjrelpath)
     end

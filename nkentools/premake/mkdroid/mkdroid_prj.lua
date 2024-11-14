@@ -186,7 +186,18 @@ end
 
 function mkdroid.project.importModules(prj, cfg)
     if cfg.local_importModules and #cfg.local_importModules > 0 then
-        p.w('  LOCAL_IMPORT_MODULES := %s', table.concat(cfg.local_importModules, " \\\n                    "))
+        -- Ajouter le chemin /Android.mk à chaque module
+        local modules_with_path = {}
+        for _, module in ipairs(cfg.local_importModules) do
+            -- Extraire le nom du module (dernière partie après le dernier '/')
+            local module_name = module:match("([^/]+)$")
+            -- Construire le chemin complet
+            local complete_path = module .. "/" .. module_name .. ".mk"
+            table.insert(modules_with_path, complete_path)
+        end
+        
+        -- Concaténer les modules avec le chemin ajouté
+        p.w('  LOCAL_IMPORT_MODULES := %s', table.concat(modules_with_path, " \\\n                    "))
     end
 end
 

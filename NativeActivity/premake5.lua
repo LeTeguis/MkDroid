@@ -9,7 +9,7 @@ project "NativeActivity"
     files { 
         "./src/**.h", 
         "./src/**.cpp",
-        "$(NDK_PATH)/sources/android/native_app_glue/android_native_app_glue.c"
+        solution.properties.ndk.path .. "/" .. solution.properties.ndk.version .. "/sources/android/native_app_glue/android_native_app_glue.c"
     }
 
     -- Lien avec `native_app_glue` et autres bibliothèques Android
@@ -17,7 +17,7 @@ project "NativeActivity"
 
     includedirs { 
         "./src",
-        "$(NDK_PATH)/sources/android/native_app_glue"
+        solution.properties.ndk.path .. "/" .. solution.properties.ndk.version .. "/sources/android/native_app_glue"
     }
 
     local_abi               { solution.abi.flags.all }
