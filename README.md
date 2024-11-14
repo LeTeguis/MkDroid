@@ -1,197 +1,201 @@
 
 # MkDroid
 
-MkDroid est un framework qui permet de générer des projets Android en C++ natif à l'aide de **Premake5**. 
-Il inclut des outils pour automatiser la compilation, la signature, le nettoyage et le déploiement d'APK, 
-ainsi que pour gérer les appareils Android connectés.
+MkDroid is a framework for generating Android projects in native C++ using **Premake5**. 
+It includes tools for automating APK compilation, signing, cleanup and deployment, 
+as well as for managing connected Android devices.
 
-## 📋 Fonctionnalités
+## 📋 Features
 
-- Génération de projets Android avec **Premake5**.
-- Prise en charge des compilateurs **Gradle**, **Clang**, et autres.
-- Automatisation des tâches courantes :
+- Android project generation with **Premake5**.
+- Support for **Gradle**, **Clang** and other compilers.
+- Automation of common tasks:
   - Compilation
-  - Signature et vérification des APK
-  - Nettoyage des projets
-  - Installation des APK sur des appareils connectés
-- Système flexible permettant l'intégration avec des projets tiers.
-- Compatibilité avec **C++ natif** pour une performance optimale.
+  - APK signing and verification
+  - Project cleanup
+  - Installation of APKs on connected devices
+- Flexible system for integration with third-party projects.
+- Native **C++ compatibility** for optimum performance.
 
 ---
 
-## 🛠️ Structure du projet
+## 🛠️ Project structure
 
-Voici un aperçu de la structure des dossiers principaux :
+Here's an overview of the main folder structure:
 
 ```
 ├── nkentools/
-│   ├── android/         # Scripts Gradle pour Android
-│   ├── commands/        # Scripts Python pour diverses commandes
-│   ├── premake/         # Binaires et modules Premake5
-│   └── workspace/       # Fichiers et configurations spécifiques aux projets
-├── nken.sh              # Script Shell principal
-├── nken.bat             # Script Batch principal
-└── premake5.lua         # Exemple de fichier de configuration Premake5
+│ ├── android/ # Gradle scripts for Android
+│ ├── commands/ # Python scripts for various commands
+│ ├── premake/ # Premake5 binaries and modules
+│ └── workspace/ # Project-specific files and configurations
+├── nken.sh # Main shell script
+├── nken.bat # Main batch script
+└── premake5.lua # Example Premake5 configuration file
 ```
 
 ---
 
-## 🚀 Installation et configuration
+## 🚀 Installation and configuration
 
 ### 1️⃣ Installation
 
-1. **Clonez le projet MkDroid :**
+1. **Launch the MkDroid project:**
    ```bash
    git clone https://github.com/LeTeguis/mkdroid.git
    cd mkdroid
    ```
 
-2. **Copiez les fichiers nécessaires dans votre projet tiers :**
-   - Copiez le dossier `nkentools/` et les fichiers suivants dans la racine de votre projet :
+2. **Copy the necessary files into your third-party project:**
+   - Copy the `nkentools/` folder and the following files to the root of your project:
      - `nken.sh`
      - `nken.bat`
      - `.nkenclean`
 
 ### 2️⃣ Configuration
 
-1. Créez un fichier `premake5.lua` dans votre projet.
-2. Exemple de configuration basique :
+1. Create a `premake5.lua` file in your project.
+2. Basic configuration example:
    ```lua
-   include "nkentools/config.lua"
+   include “nkentools/config.lua
 
-   workspace "MKDROID"
-       configurations { "Debug", "Release" }
-       architecture "arm64"
+   workspace “MKDROID
+       configurations { “Debug”, “Release” }
+       architecture “arm64
 
-       include "AppBase"
-       include "NativeActivity"
+       include “AppBase”
+       include “NativeActivity”
    ```
-3. Ajoutez vos projets et bibliothèques spécifiques dans le fichier.
+3. Add your specific projects and libraries to the file.
 
 ---
 
-## 🔧 Utilisation
+## 🔧 Usage
 
-Les commandes suivantes permettent d'exécuter différentes tâches depuis le terminal ou l'invite de commande.
+The following commands allow you to perform various tasks from the terminal or command prompt.
 
-### 1️⃣ Génération de projets
+### 1️⃣ Project generation
 
-Utilisez Premake5 pour générer un projet Android :
+Use Premake5 to generate an Android project:
 ```bash
 ./nken gen gradle
 ```
 
-### 2️⃣ Compilation
+### 2️⃣ Compiling
 
-Compilez le projet avec un compilateur spécifique :
+Compile the project with a specific compiler:
 ```bash
 ./nken build gradle --path ./myproject --config release
 ```
 
-### 3️⃣ Signature et vérification des APK
+### 3️⃣ Signing and verifying APKs
 
-- Signer un APK :
+- Signing an APK :
   ```bash
   ./nken sign --apk myapp.apk --keystore mykeystore.jks --alias mykeyalias --storepass mystorepass --keypass mykeypass
   ```
 
-- Vérifier si un APK est signé :
+- Check if an APK is signed :
   ```bash
   ./nken issign --apk myapp.apk
   ```
 
-### 4️⃣ Installation sur appareil Android
+### 4️⃣ Installation on Android devices
 
-Installez un APK sur un appareil spécifique :
+Install an APK on a specific device:
 ```bash
 ./nken adb install --device_id <device_id> --apk <path_to_apk>
 ```
 
-### 5️⃣ Nettoyage
+### 5️⃣ Cleaning
 
-Nettoyez les fichiers générés :
+Clean up the generated files:
 ```bash
 ./nken clean
 ```
 
 ---
 
-## ⚙️ Configuration système requise
+## ⚙️ System requirements
 
-- **Java JDK** : 17 ou supérieur
-- **Android SDK** : Version minimale 21
-- **Android NDK** : Version 25.1.8937393 ou supérieure
-- **CMake** : 3.22.1 ou supérieur
-- **Gradle** : 8.1 ou supérieur
+- Java JDK**: 17 or higher
+- Android SDK**: Minimum version 21
+- Android NDK**: Version 25.1.8937393 or higher
+- **CMake**: 3.22.1 or higher
+- Gradle**: 8.1 or higher
 
 ---
 
 ## 📖 Documentation
 
-- **Configurer premake5.lua** : Consultez `nkentools/premake/mkdroid/` pour des exemples détaillés.
-- **Commandes disponibles** : Toutes les commandes Python se trouvent dans le dossier `nkentools/commands/`.
+- **Configuring premake5.lua** : See `nkentools/premake/mkdroid/` for detailed examples.
+- **Available commands** : All Python commands can be found in the `nkentools/commands/` folder.
 
 ---
 
-## 🛠️ Développement
+## 🛠️ Development
 
-Pour contribuer ou étendre les fonctionnalités de MkDroid :
-1. Modifiez ou ajoutez des scripts lua dans `nkentools/premake/mkdroid/`.
-1. Modifiez ou ajoutez des scripts Python dans `nkentools/commands/`.
-2. Ajoutez de nouvelles fonctionnalités dans `nken.sh` ou `nken.bat` ou autres.
+To contribute to or extend the functionality of MkDroid :
+1. Edit or add lua scripts in `nkentools/premake/mkdroid/`.
+1. Modify or add Python scripts in `nkentools/commands/`.
+2. Add new features in `nken.sh` or `nken.bat` or others.
 
 ---
 
-## 📜 Licence
+## 📜 License
 
-Ce projet est sous licence MIT. Consultez le fichier `LICENSE` pour plus de détails.
+This project is licensed under the MIT license. See the `LICENSE` file for details.
 
 ---
 
 ## 🤝 Contributions
 
-Les contributions sont les bienvenues ! N'hésitez pas à soumettre des issues, des pull requests ou à discuter de nouvelles idées pour améliorer MkDroid.
+Contributions are welcome! Feel free to submit issues, pull requests or discuss new ideas for improving MkDroid.
 
 ---
 
-## 🧩 Exemple de projet
+## 🧩 Example project
 
-Un exemple complet est disponible dans le dossier `./`. Suivez ces étapes pour le configurer :
-1. Copiez les fichiers de `nkentools/` et le script `premake5.lua`.
-2. Modifiez `premake5.lua` pour ajouter vos projets.
+A complete example is available in the `./` folder. Follow these steps to configure it:
+1. Copy the `nkentools/` files and the `premake5.lua` script.
+2. Modify `premake5.lua` to add your projects.
 
 ---
 
 ## 💬 Support
 
-Pour toute question ou assistance, contactez-nous à : `teuguiasederis@gmail.com`.
+For questions or assistance, please contact us at : `teuguiasederis@gmail.com`.
 
 ---
 
-## 🛡️ Bonnes pratiques
+## 🛡️ Best practices
 
-1. **Structure des dossiers** : Organisez vos projets avec des sous-dossiers clairs pour séparer le code natif, les ressources et les scripts Gradle.
-2. **Configurations Premake5** : Gardez vos configurations decentralisées dans plusieurs fichiers `premake5.lua` pour simplifier les mises à jour.
-3. **Gestion des dépendances** : Assurez-vous d'ajouter toutes les bibliothèques nécessaires dans les configurations de vos projets.
-4. **Tests fréquents** : Testez vos APK sur plusieurs appareils et versions Android pour garantir la compatibilité.
+1. **Folder structure**: Organize your projects with clear subfolders to separate native code, resources and Gradle scripts.
+2. **Premake5 configurations**: Keep your configurations decentralized in several `premake5.lua` files to simplify updates.
+3. **Dependency management**: Make sure you add all necessary libraries to your project configurations.
+4. **Frequent testing**: Test your APKs on multiple devices and Android versions to ensure compatibility.
+
+
 
 ---
 
-## 🌟 Remerciements
+## 🌟 Acknowledgements
 
-Merci à tous les contributeurs et aux développeurs qui ont testé MkDroid dans leurs projets ! Votre feedback nous aide à améliorer ce framework.
+Thanks to all the contributors and developers who have tested MkDroid in their projects! Your feedback helps us to improve this framework.
 
 ---
 
 ## 🗺️ Roadmap
 
-Voici les prochaines fonctionnalités prévues pour MkDroid :
-1. **Intégration CI/CD** : Automatisation de la génération et du déploiement via des outils comme GitHub Actions ou Jenkins.
-2. **Support des modules Kotlin** : Compatibilité avec les bibliothèques et modules Kotlin natifs.
+Here are the next features planned for MkDroid:
+1. **CI/CD integration**: Automation of generation and deployment via tools like GitHub Actions or Jenkins.
+2. **Kotlin module support**: Compatibility with native Kotlin modules and libraries.
 
-Si vous avez des suggestions ou des idées pour MkDroid, n'hésitez pas à les partager dans la section **Issues** du projet GitHub ou a me joindre par mail.
+If you have any suggestions or ideas for MkDroid, please share them in the **Issues** section of the GitHub project or contact me by mail.
 
 ---
 
-🎉 **Merci d'utiliser MkDroid !**  
-Faites-nous savoir si vous avez des idées ou si vous avez créé un projet en utilisant ce framework.
+🎉 **Thank you for using MkDroid!**  
+Let us know if you have any ideas or have created a project using this framework.
+
+Translated with DeepL.com (free version)
