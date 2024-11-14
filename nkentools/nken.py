@@ -12,7 +12,7 @@ import subprocess
 """source ~/.bash_env"""
 
 def GetCommandPath(command):
-    return f'Tools/commands/{command}.py'
+    return f'./nkentools/commands/{command}.py'
 
 
 def RunCommand(command, command_path, options):
