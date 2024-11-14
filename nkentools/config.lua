@@ -1,7 +1,7 @@
 -- config.lua
 
 -- solution premake5 path
-solution.premake.path = "%{wks.location}/External/Bin/Premake5"
+solution.premake.path = "%{wks.location}/nkentools/premake"
 
 -- solution project
 solution.project.appBase                = {}

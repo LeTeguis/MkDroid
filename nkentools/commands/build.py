@@ -5,12 +5,38 @@ import argparse
 import os
 import sys
 from pathlib import Path
+import platform
 
-gradle_build_path = ".\\nkentools\\android\\gradlew.bat"
-msvc_build_path = "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe"
-clang_build_path = "C:\\Program Files\\LLVM\\bin\\clang.exe"
-mingw_build_path = "C:\\Program Files\\MinGW\\bin\\gcc.exe"
-make_build_path = "C:\\Program Files\\MinGW\\bin\\gcc.exe" # Modifier si le chemin de make est différent
+
+# Détection de la plateforme
+system = platform.system()
+
+
+# Chemins pour Windows
+if system == "Windows":
+    gradle_build_path = os.path.join(os.getcwd(), "nkentools", "android", "gradlew.bat")
+    msvc_build_path = os.path.join("C:\\Program Files", "Microsoft Visual Studio", "2022", "Community", "MSBuild", "Current", "Bin", "MSBuild.exe")
+    clang_build_path = os.path.join("C:\\Program Files", "LLVM", "bin", "clang++.exe")
+    mingw_build_path = os.path.join("C:\\Program Files", "MinGW", "bin", "g++.exe")  # Chemin pour g++
+    make_build_path = os.path.join("C:\\Program Files", "MinGW", "bin", "make.exe")  # Chemin pour Make
+
+# Chemins pour Linux
+elif system == "Linux":
+    gradle_build_path = os.path.join(".", "nkentools", "android", "gradlew")  # Utilisation de `./` pour Linux
+    msvc_build_path = None  # MSVC n'est pas disponible sous Linux
+    clang_build_path = os.path.join("/usr", "bin", "clang++")  # Chemin typique de Clang sous Linux
+    mingw_build_path = os.path.join("/usr", "bin", "g++")  # Chemin pour g++
+    make_build_path = os.path.join("/usr", "bin", "make")  # Chemin typique pour Make sous Linux
+    clang_cpp_compiler = os.path.join("/usr", "bin", "clang++")  # Chemin pour clang++
+
+# Chemins pour macOS
+elif system == "Darwin":  # "Darwin" est le nom de la plateforme pour macOS
+    gradle_build_path = os.path.join(".", "nkentools", "android", "gradlew")  # Idem que sous Linux
+    msvc_build_path = None  # MSVC n'est pas disponible sous macOS
+    clang_build_path = os.path.join("/usr", "bin", "clang++")  # Clang est souvent l'option par défaut sous macOS
+    mingw_build_path = os.path.join("/usr", "bin", "g++")  # GCC est parfois symboliquement lié à Clang sur macOS
+    make_build_path = os.path.join("/usr", "bin", "make")  # Make est généralement disponible par défaut
+    clang_cpp_compiler = os.path.join("/usr", "bin", "clang++")  # Chemin pour clang++
 
 
 def description():
@@ -52,17 +78,15 @@ def build_gradle(solution_path, config):
         raise FileNotFoundError(f"Le fichier Gradle Wrapper n'a pas été trouvé : {build_path}")
 
     command = [
-        str(build_path), '-p', str(Path(solution_path)),
+        str(build_path), '-p', str(Path(solution_path).resolve()),
         f"assemble{config.capitalize()}"
     ]
-
-    print(command)
 
     try:
         result = subprocess.run(command, check=True, capture_output=True, text=True, cwd=solution_path)
         print(f"Compilation {config} réussie :\n{result.stdout}")
     except subprocess.CalledProcessError as e:
-        print(f"Erreur lors de la compilation {config} : {e.stderr}")
+        print(f"Erreur lors de la compilation {config} : {e.stderr} : {e}")
         exit(1)
 
 

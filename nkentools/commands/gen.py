@@ -3,6 +3,7 @@ import argparse
 import sys
 from pathlib import Path
 
+
 premake_path = "./nkentools/premake/premake5.exe"
 
 
@@ -57,6 +58,7 @@ def help_command():
 
     sys.exit(0)
 
+
 def gen_command(command_names=None):
     """
     Gère la génération des commandes en fonction des systèmes de construction spécifiés.
@@ -87,6 +89,7 @@ def gen_command(command_names=None):
             print(f"Commande inconnue : {command}")
             help_command()
 
+
 def run_command(command):
     """
     Exécute une commande système et gère les erreurs.
@@ -97,8 +100,9 @@ def run_command(command):
         result = subprocess.run(command, check=True, capture_output=True, text=True)
         print(result.stdout)
     except subprocess.CalledProcessError as e:
-        print(f"Erreur lors de l'exécution de la commande : {e.stderr}")
+        print(f"Erreur lors de l'exécution de la commande : {e.stderr} >> {e}")
         sys.exit(1)
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Outil de compilation multi-plateforme.")

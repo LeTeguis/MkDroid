@@ -84,8 +84,5 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    if args.help:
-        help_command()
-    
     sign(args.apk, args.keystore, args.alias, args.storepass, args.keypass)
     sys.exit(0)

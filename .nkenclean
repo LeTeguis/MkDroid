@@ -18,4 +18,5 @@ Makefile
 
 .vscode/
 .vs/
-[bB]uild
+[bB]uild/
+platforms/android/

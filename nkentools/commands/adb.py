@@ -39,7 +39,7 @@ def help_command():
         
     Exemples :
         ./nken adb list
-        ./nken adb install --device_id <device_id> --apk <path_to_apk>
+        ./nken adb install --id <device_id> --apk <path_to_apk>
     """)
 
 

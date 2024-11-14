@@ -24,5 +24,3 @@ project "NativeActivity"
     local_platform          (solution.platform.flags.android21)
     local_stl               (solution.stl.flags.cpp_static)
     --local_toolchain         (solution.toolchain.flags.clang)
-
-    print(solution.abi.flags.all)

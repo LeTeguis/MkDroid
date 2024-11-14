@@ -8,6 +8,12 @@ from pathlib import Path
 jdk_path = "C:/Program Files/Java/jdk-17"
 sdk_path = "C:/Users/teugu/AppData/Local/Android/Sdk"
 
+
+
+def description():
+    return "Commande pour créer un projet ou des fichiers, générer un keystore, etc."
+
+
 def help_command():
     """Affiche l'aide pour une action spécifique."""
     for action_name in ["filesign", "class", "struct", "enum", "project"]:
@@ -74,8 +80,6 @@ def help_command():
         else:
             print("Commande inconnue. Veuillez utiliser 'help' pour voir la liste des commandes disponibles.")
 
-def description():
-    return "Commande pour créer un projet ou des fichiers, générer un keystore, etc."
 
 def run_filesign(jdk_path, keystore, alias, storepass, keypass, cn, ou, o, l, s, c):
     try:

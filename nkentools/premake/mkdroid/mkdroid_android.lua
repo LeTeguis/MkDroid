@@ -8,7 +8,7 @@ function mkdroid.android.generate(wks, prj)
     -- Vérifier si le type de projet est 'ConsoleApp'
     if prj.kind == "ConsoleApp" then
         -- Chemin source (dossier 'android' dans le module 'mkdroid')
-        local sourceDir = path.join("External/Bin/Premake5/mkdroid", "android")
+        local sourceDir = path.join("nkentools/premake/mkdroid", "android")
         
         -- Chemin destination (dossier du projet)
         local destDir = path.join(prj.location, "platforms", "android")
@@ -24,10 +24,9 @@ end
 function mkdroid.android.copyDirectory(wks, prj, srcDir, destDir)
     -- Créer le dossier de destination s'il n'existe pas
     os.mkdir(destDir)
-
     -- Utiliser os.matchfiles pour obtenir tous les fichiers et sous-dossiers
     local files = os.matchfiles(srcDir .. "/**")
-
+    
     for _, file in ipairs(files) do
         -- Chemin relatif à partir du dossier source
         local relPath = path.getrelative(srcDir, file)
@@ -177,6 +176,7 @@ function mkdroid.android.modifyAppBuildGradle(wks, prj, content)
     local relative = path.getrelative(prj.location .. "/platforms/android/app", wks.location)
 
     content = content:gsub("{10}", relative .. "/" .. wks.name .. "_Android.mk")
+    
     return content
 end
 

@@ -13,7 +13,7 @@ android {
   
   externalNativeBuild {
       ndkBuild {
-          path '../../../../PremakeNDAndroid_Android.mk' // Chemin vers votre fichier .mk
+          path '../../../../MKDROID_Android.mk' // Chemin vers votre fichier .mk
       }
   }
 
@@ -29,7 +29,27 @@ android {
             def apkPath = project.findProperty('apkPath') ?: "AppBase"
             def apkName = project.findProperty('apkName') ?: "AppBase-1.0"
             def variantSuffix = variant.buildType.name == "release" ? "release" : "debug"
-            output.outputFileName = "${apkPath}/${apkName}-${variant.versionName}-${variantSuffix}.apk" // Nom de l'APK
+            //output.outputFileName = "${apkPath}/${apkName}-${variant.versionName}-${variantSuffix}.apk" // Nom de l'APK
+            output.outputFileName = "${apkName}-${variant.versionName}-${variantSuffix}.apk" // Nom de l'APK
+
+            // Ajouter une tâche pour copier l'APK dans le répertoire de destination
+            variant.assemble.doLast {
+                def buildDir = output.outputFile.parent  // Répertoire où l'APK est généré
+                def sourceApk = new File(buildDir, output.outputFileName)
+                def destinationDir = new File("$buildDir/$apkPath")
+
+                // Créer le répertoire de destination s'il n'existe pas
+                if (!destinationDir.exists()) {
+                    destinationDir.mkdirs()
+                }
+
+                // Copier l'APK
+                def destinationApk = new File(destinationDir, sourceApk.name)
+                project.copy {
+                    from sourceApk
+                    into destinationDir
+                }
+            }
         }
   }
 

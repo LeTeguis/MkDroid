@@ -1,6 +1,6 @@
 -- premake5.lua for PremakeNDAndroid solution
 
-include "tools/config.lua"
+include "nkentools/config.lua"
 
 workspace "MKDROID"
     configurations { "Debug", "Release" }
