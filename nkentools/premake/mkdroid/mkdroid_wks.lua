@@ -45,23 +45,30 @@ function mkdroid.workspace.generate(sln)
     p.w('%s := $(call my-dir)', curpath)
     p.w('')
 
+    local includedFiles = {}  -- Table pour suivre les fichiers inclus
+
+    -- Inclusion des projets
     for prj in pworkspace.eachproject(sln) do
         local prjpath = premake.filename(prj, solution.prjFile(prj))
         local prjrelpath = path.getrelative(sln.location, prjpath)
-        p.x('include $(%s)/%s', curpath, prjrelpath)
+        if not includedFiles[prjrelpath] then
+            p.x('include $(%s)/%s', curpath, prjrelpath)
+            includedFiles[prjrelpath] = true  -- Marquer comme inclus
+        end
     end
 
+    -- Inclusion par configuration
     for cfg in pworkspace.eachconfig(sln) do
         local existingmklist = {}
         local moduleslist = {}
 
-        -- Aggregate unique Android.mk paths and module imports for each project per configuration.
+        -- Agrégation des chemins Android.mk uniques et des imports de modules pour chaque projet par configuration.
         for prj in pworkspace.eachproject(sln) do
             for prjcfg in project.eachconfig(prj) do
                 if prjcfg.shortname == cfg.shortname then
                     for _, mkpath in ipairs(prj.local_includes) do
                         local mkrelpath = path.getrelative(sln.location, mkpath)
-                        if not table.contains(existingmklist, mkrelpath) then
+                        if not table.contains(existingmklist, mkrelpath) and not includedFiles[mkrelpath] then
                             table.insert(existingmklist, mkrelpath)
                         end
                     end
@@ -79,6 +86,7 @@ function mkdroid.workspace.generate(sln)
             p.x('ifeq ($(%s),%s)', mkdroid.CONFIG_OPTION, cfg.shortname)
             for _, mkpath in ipairs(existingmklist) do
                 p.x('  include $(%s)/%s', curpath, mkpath)
+                includedFiles[mkpath] = true  -- Marquer comme inclus
             end
             for _, mod in ipairs(moduleslist) do
                 p.x('  $(call import-module,%s)', mod)

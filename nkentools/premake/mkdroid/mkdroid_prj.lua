@@ -28,7 +28,6 @@ function mkdroid.project.generate(wks, prj)
         mkdroid.project.includes(prj, cfg, wks)
         mkdroid.project.cppFeatures(prj, cfg)
         mkdroid.project.cfgSrcFiles(cfgFiles[cfg])
-        mkdroid.project.dependencies(prj, cfg)
         mkdroid.project.ldFlags(prj, cfg)
         mkdroid.project.cFlags(prj, cfg)
 
@@ -48,8 +47,10 @@ function mkdroid.project.generate(wks, prj)
         mkdroid.project.importModules(prj, cfg)
 
         -- Liens statiques et dynamiques
-        mkdroid.project.staticLinks(prj, cfg)
-        mkdroid.project.sharedLinks(prj, cfg)
+        -- mkdroid.project.staticLinks(prj, cfg)
+        -- mkdroid.project.sharedLinks(prj, cfg)
+        -- mkdroid.project.dependencies(prj, cfg)
+        mkdroid.project.unique_dependencies(prj, cfg)
 
         -- Toujours à la fin
         mkdroid.project.kind(prj, cfg)
@@ -316,6 +317,58 @@ function mkdroid.project.dependencies(prj, cfg)
     if #shareddeps > 0 then
         --p.w('  LOCAL_SHARED_LIBRARIES := %s', table.implode(shareddeps, '', '', ' '))
         p.w('  LOCAL_SHARED_LIBRARIES := %s', table.concat(shareddeps, " \\\n                    "))
+    end
+end
+
+function mkdroid.project.unique_dependencies(prj, cfg)
+    local staticdeps = {}
+    local shareddeps = {}
+
+    -- Récupérer les dépendances
+    local dependencies = premake.config.getlinks(cfg, "dependencies", "object")
+
+    -- Ajouter les dépendances à la liste appropriée
+    for _, dep in ipairs(dependencies) do
+        if dep.kind == premake.STATICLIB then
+            if not staticdeps[dep.filename] then
+                staticdeps[dep.filename] = true  -- Utiliser un tableau comme un ensemble pour éviter les doublons
+            end
+        else
+            if not shareddeps[dep.filename] then
+                shareddeps[dep.filename] = true
+            end
+        end
+    end
+
+    -- Ajouter les liens locaux
+    for _, v in ipairs(cfg.local_staticLinks) do
+        if not staticdeps[v] then
+            staticdeps[v] = true
+        end
+    end
+
+    for _, v in ipairs(cfg.local_sharedLinks) do
+        if not shareddeps[v] then
+            shareddeps[v] = true
+        end
+    end
+
+    -- Afficher les bibliothèques statiques
+    if next(staticdeps) then
+        local staticList = {}
+        for k in pairs(staticdeps) do
+            table.insert(staticList, k)
+        end
+        p.w('  LOCAL_STATIC_LIBRARIES := %s', table.concat(staticList, " \\\n                    "))
+    end
+
+    -- Afficher les bibliothèques partagées
+    if next(shareddeps) then
+        local sharedList = {}
+        for k in pairs(shareddeps) do
+            table.insert(sharedList, k)
+        end
+        p.w('  LOCAL_SHARED_LIBRARIES := %s', table.concat(sharedList, " \\\n                    "))
     end
 end
 
