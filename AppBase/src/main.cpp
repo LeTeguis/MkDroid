@@ -14,13 +14,19 @@
 #include <time.h>
 
 
-#include <entry.h>
-#include <utils/utils.h>
-#include <NativeActivity/android_native_app_glue.h>
+#include "entry.h"
+#include "utils/utils.h"
+#include "native_app_glue/android_native_app_glue.h"
 
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "native-activity", __VA_ARGS__))
 #define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, "native-activity", __VA_ARGS__))
 
+void xmain(struct android_app* app);
+
+extern "C" void nkentseu_android_entry(ANativeActivity* activity, void* savedState, size_t savedStateSize) {
+    xmain_ptr = xmain;
+    systemOnCreate(&activity, savedState, savedStateSize);
+}
 
 struct saved_state {
     float angle;

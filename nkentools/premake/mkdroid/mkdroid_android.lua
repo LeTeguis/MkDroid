@@ -192,8 +192,8 @@ function mkdroid.android.modifyManifest(wks, prj, content)
     content = content:gsub('{7}', prj.name)                  -- Nom du projet
     content = content:gsub('{8}', prj.name)                  -- Nom de l'application
     content = content:gsub('{9}', 'true')                    -- Accélération matérielle
-    content = content:gsub('{10}', 'android.app.lib_name')   -- Nom de la bibliothèque
-    content = content:gsub('{11}', prj.name)                 -- Nom du projet pour la bibliothèque
+    content = content:gsub('{10}', prj.name)   -- Nom de la bibliothèque
+    content = content:gsub('{11}', 'nkentseu_android_entry')                 -- Nom du projet pour la bibliothèque
 
     -- Ajout de la version OpenGL ou Vulkan spécifiée
     local api_type = "opengl"  -- Remplacez par "vulkan" si vous voulez utiliser Vulkan

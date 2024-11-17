@@ -12,13 +12,13 @@ solution.project.appBase.include 	    = "%{solution.project.appBase.path}/src"
 solution.project.appBase.targetdir 	    = ""
 solution.project.appBase.objdir 	    = ""
 
-solution.project.nativeActivity             = {}
-solution.project.nativeActivity.name 	    = "NativeActivity"
-solution.project.nativeActivity.path 	    = "%{wks.location}/%{solution.project.nativeActivity.name}"
-solution.project.nativeActivity.source 	    = "%{solution.project.nativeActivity.path}/src"
-solution.project.nativeActivity.include     = "%{solution.project.nativeActivity.path}/src"
-solution.project.nativeActivity.targetdir   = ""
-solution.project.nativeActivity.objdir 	    = ""
+solution.project.base             = {}
+solution.project.base.name 	    = "base"
+solution.project.base.path 	    = "%{wks.location}/%{solution.project.base.name}"
+solution.project.base.source 	    = "%{solution.project.base.path}/src"
+solution.project.base.include     = "%{solution.project.base.path}/src"
+solution.project.base.targetdir   = ""
+solution.project.base.objdir 	    = ""
 
 -- solution properties
 solution.properties.jdk 		        = "C:/Program Files/Java/jdk-17" 

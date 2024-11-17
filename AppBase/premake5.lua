@@ -10,31 +10,32 @@ project "AppBase"
     files { 
         "./src/**.h", 
         "./src/**.cpp",
+        "./src/**.c",
         --solution.properties.ndk.path .. "/" .. solution.properties.ndk.version .. "/sources/android/native_app_glue/android_native_app_glue.c"
     }
 
     includedirs { 
         "./src",
-        solution.project.nativeActivity.include,
+        solution.project.base.include,
         --solution.properties.ndk.path .. "/" .. solution.properties.ndk.version .. "/sources/android/native_app_glue"
     }
 
-    --print(solution.project.nativeActivity.include)
+    --print(solution.project.base.include)
 
-    links { "NativeActivity", "android", "log", "EGL", "GLESv3", "GLESv1_CM" }
+    links { "Base", "android", "log", "EGL", "GLESv3", "GLESv1_CM" }
 
-    -- links { "android", "log", "EGL", "GLESv3", "GLESv1_CM" }
+    --links { "android", "log", "EGL", "GLESv3", "GLESv1_CM" }
 
     local_importModules { 
-        --solution.project.nativeActivity.path,
+        --solution.project.base.path,
     }
 
     local_includes { 
-        --solution.project.nativeActivity.path .. "/" .. solution.project.nativeActivity.name .. ".mk" 
+        --solution.project.base.path .. "/" .. solution.project.base.name .. ".mk" 
     }
 
     local_sharedLinks {
-        --"NativeActivity",
+        --"base",
     }
 
     local_abi               {solution.abi.flags.all}

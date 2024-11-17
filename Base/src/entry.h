@@ -15,20 +15,23 @@
 void xmain(struct android_app* app);
 */
 
+//#include <android_native_app_glue.h>
+/*/#include "native_app_glue/android_native_app_glue.h"
 
-extern void xmain(struct android_app* app);  // Déclaration de xmain
+struct android_app;
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void android_main(struct android_app* app) {
-    xmain(app);  // Appel de xmain
-}
+void xmain(struct android_app* app);
 
 #ifdef __cplusplus
 }
 #endif
+*/
 
+// Déclaration du pointeur de fonction
+extern void (*xmain_ptr)(struct android_app* app);
 
 #endif //__XMEN_H__

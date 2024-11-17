@@ -18,7 +18,10 @@
       android:hardwareAccelerated="true"
       android:exported="{9}">
       <meta-data
-        android:name="{10}"
+        android:name="android.app.lib_name"
+        android:value="{10}" />
+      <meta-data
+        android:name="android.app.func_name"
         android:value="{11}" />
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />

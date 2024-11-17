@@ -1,6 +1,6 @@
--- premake5.lua for ./NativeActivity
+-- premake5.lua for ./Base
 
-project "NativeActivity"
+project "Base"
     kind "SharedLib"
     --kind "StaticLib"
     language "C++"
@@ -10,6 +10,7 @@ project "NativeActivity"
     files { 
         "./src/**.h", 
         "./src/**.cpp",
+        "./src/**.c",
         --solution.properties.ndk.path .. "/" .. solution.properties.ndk.version .. "/sources/android/native_app_glue/android_native_app_glue.c"
     }
 

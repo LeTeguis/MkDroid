@@ -25,5 +25,5 @@ workspace "MKDROID"
     }
 
     
-    include "NativeActivity"
+    include "Base"
     include "AppBase"
