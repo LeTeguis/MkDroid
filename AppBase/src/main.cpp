@@ -23,11 +23,6 @@
 
 void xmain(struct android_app* app);
 
-extern "C" void nkentseu_android_entry(ANativeActivity* activity, void* savedState, size_t savedStateSize) {
-    xmain_ptr = xmain;
-    systemOnCreate(&activity, savedState, savedStateSize);
-}
-
 struct saved_state {
     float angle;
     int32_t x;
