@@ -14,8 +14,9 @@
 #include <time.h>
 
 
-#include "utils/utils.h"
-#include <android_native_app_glue.h>
+#include <entry.h>
+#include <utils/utils.h>
+#include <NativeActivity/android_native_app_glue.h>
 
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "native-activity", __VA_ARGS__))
 #define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, "native-activity", __VA_ARGS__))
@@ -730,29 +731,30 @@ ASensorManager *AcquireASensorManagerInstance(android_app *app) {
  * android_native_app_glue.  It runs in its own thread, with its own
  * event loop for receiving input events and doing other things.
  */
-void android_main(struct android_app *state) {
+
+void xmain(struct android_app* app) {
     struct engine engine{};
 
     memset(&engine, 0, sizeof(engine));
-    state->userData = &engine;
-    state->onAppCmd = engine_handle_cmd;
-    state->onInputEvent = engine_handle_input;
-    engine.app = state;
+    app->userData = &engine;
+    app->onAppCmd = engine_handle_cmd;
+    app->onInputEvent = engine_handle_input;
+    engine.app = app;
 
 
     // Prepare to monitor accelerometer
-    engine.sensorManager = AcquireASensorManagerInstance(state);
+    engine.sensorManager = AcquireASensorManagerInstance(app);
     engine.accelerometerSensor = ASensorManager_getDefaultSensor(
             engine.sensorManager,
             ASENSOR_TYPE_ACCELEROMETER);
     engine.sensorEventQueue = ASensorManager_createEventQueue(
             engine.sensorManager,
-            state->looper, LOOPER_ID_USER,
+            app->looper, LOOPER_ID_USER,
             nullptr, nullptr);
 
-    if (state->savedState != nullptr) {
+    if (app->savedState != nullptr) {
         // We are starting with a previous saved state; restore from it.
-        engine.state = *(struct saved_state *) state->savedState;
+        engine.state = *(struct saved_state *) app->savedState;
     }
 
     gettimeofday(&engine.state.startTime, NULL);
@@ -773,7 +775,7 @@ void android_main(struct android_app *state) {
 
             // Process this event.
             if (source != nullptr) {
-                source->process(state, source);
+                source->process(app, source);
             }
 
             // If a sensor has data, process it now.
@@ -791,7 +793,7 @@ void android_main(struct android_app *state) {
             }
 
             // Check if we are exiting.
-            if (state->destroyRequested != 0) {
+            if (app->destroyRequested != 0) {
                 engine_term_display(&engine);
                 return;
             }

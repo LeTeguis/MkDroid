@@ -107,12 +107,31 @@ function mkdroid.project.includes(prj, cfg, wks)
 
     -- Fonction pour vérifier si le chemin contient une variable sous la forme $(nom_variable)
     local function contains_variable(dir)
-        return dir:find("%$%(.+%)") ~= nil
+        return dir:match("%$%(.+%)") ~= nil
     end
 
-    -- Fonction pour obtenir le chemin relatif par rapport au répertoire du projet si le chemin ne contient pas de variable
+    -- Fonction pour vérifier si le chemin est relatif
+    local function is_relative_path(dir)
+        return not dir:match("^%w%:") and not dir:match("^/")  -- Vérifie si le chemin n'est pas absolu
+    end
+
+    -- Fonction pour vérifier si le chemin est dans le même workspace
+    local function is_in_same_workspace(dir)
+        -- Remplacez cette logique par celle qui vérifie si le chemin est dans le même workspace
+        return dir:match("^" .. wks.location) ~= nil  -- Exemple : vérifie si le chemin commence par le chemin du workspace
+    end
+
+    -- Fonction pour obtenir le chemin relatif par rapport au répertoire du projet
     local function relative_path(dir)
-        return contains_variable(dir) and dir or path.getrelative(prj.location, dir)
+        if contains_variable(dir) then
+            return dir  -- Si le chemin contient une variable, le retourner tel quel
+        elseif is_relative_path(dir) then
+            return "$(LOCAL_PATH)/" .. path.getrelative(prj.location, dir)  -- Ajouter LOCAL_PATH si le chemin est relatif
+        elseif is_in_same_workspace(dir) then
+            return "$(LOCAL_PATH)/" .. path.getrelative(prj.location, dir)  -- Ajouter LOCAL_PATH si le chemin est dans le même workspace
+        else
+            return dir  -- Si le chemin est absolu, le retourner tel quel
+        end
     end
 
     -- Fonction pour ajouter les répertoires d'inclusion sans doublons

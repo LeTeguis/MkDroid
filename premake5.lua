@@ -24,6 +24,6 @@ workspace "MKDROID"
         --solution.ldflags.flags.LinkTimeOptimization
     }
 
-
-    -- include "NativeActivity"
+    
+    include "NativeActivity"
     include "AppBase"

@@ -2,6 +2,7 @@
 
 project "NativeActivity"
     kind "SharedLib"
+    --kind "StaticLib"
     language "C++"
     
     solution.outputdir.build("%{prj.name}")
@@ -9,7 +10,7 @@ project "NativeActivity"
     files { 
         "./src/**.h", 
         "./src/**.cpp",
-        solution.properties.ndk.path .. "/" .. solution.properties.ndk.version .. "/sources/android/native_app_glue/android_native_app_glue.c"
+        --solution.properties.ndk.path .. "/" .. solution.properties.ndk.version .. "/sources/android/native_app_glue/android_native_app_glue.c"
     }
 
     -- Lien avec `native_app_glue` et autres bibliothèques Android
@@ -17,7 +18,7 @@ project "NativeActivity"
 
     includedirs { 
         "./src",
-        solution.properties.ndk.path .. "/" .. solution.properties.ndk.version .. "/sources/android/native_app_glue"
+        --solution.properties.ndk.path .. "/" .. solution.properties.ndk.version .. "/sources/android/native_app_glue"
     }
 
     local_abi               { solution.abi.flags.all }

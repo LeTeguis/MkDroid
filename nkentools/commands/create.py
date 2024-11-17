@@ -3,10 +3,21 @@ import argparse
 import os
 import sys
 from pathlib import Path
+import platform
 
-# Chemins par défaut vers le JDK et le SDK
-jdk_path = "C:/Program Files/Java/jdk-17"
-sdk_path = "C:/Users/teugu/AppData/Local/Android/Sdk"
+# Détection du système d'exploitation
+is_windows = platform.system() == "Windows"
+
+# Définition des chemins dynamiquement
+if is_windows:
+    jdk_path = os.path.join("C:", "Program Files", "Java", "jdk-17")
+    sdk_path = os.path.join("C:", "Users", os.getenv("USERNAME"), "AppData", "Local", "Android", "Sdk")
+    ndk_path = os.path.join(sdk_path, "ndk", "25.1.8937393")  # Remplacez par la version de votre NDK
+else:
+    # Exemple pour Linux/macOS
+    jdk_path = os.path.expanduser("~/java/jdk-17")
+    sdk_path = os.path.expanduser("~/Android/Sdk")
+    ndk_path = os.path.join(sdk_path, "ndk", "25.1.8937393")  # Remplacez par la version de votre NDK
 
 
 
